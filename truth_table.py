@@ -22,24 +22,37 @@ def negation(p):
 
 def conjuction(p, q):
     ans = []
+<<<<<<< HEAD
 
     for i in range(len(p)):
+=======
+    for i in range(len(p)):       
+>>>>>>> fdb01ef40fb055079b30c759fddbac04909e5e64
         ans.append(p[i] and q[i])
     return ans
 
 
 def disjuction(p, q):
     ans = []
+<<<<<<< HEAD
 
     for i in range(len(p)):
         ans.append(p[i] or q[i])
+=======
+    for i in range(len(p)):       
+        ans.append (p[i] or q[i])
+>>>>>>> fdb01ef40fb055079b30c759fddbac04909e5e64
     return ans
 
 
 def equivalance(p, q):
     ans = []
+<<<<<<< HEAD
 
     for i in range(len(p)):
+=======
+    for i in range(len(p)):       
+>>>>>>> fdb01ef40fb055079b30c759fddbac04909e5e64
         ans.append(p[i] ^ q[i])
     return ans
 
@@ -61,6 +74,7 @@ def isValidOperator(operator):
 
 def start():
     expression = input("Enter Propositional logic : ")
+<<<<<<< HEAD
  
     #separating variables
     variables = list(set(filter(lambda x: x != None, map(
@@ -86,6 +100,52 @@ def start():
     ans = implies(truth_table['p'], truth_table['q'])
 
     print_table(truth_table=truth_table, ans=ans,variables=variables)
+=======
+    print(check_paranthesis(expression=expression))
+    # variables = list(set(filter(lambda x: x != None,map(lambda x: x if x.isalpha() else None,'_'.join(expression).split('_')))))
+    # table = list(itertools.product([True,False], repeat=len(variables)))
+
+    # truth_table = {}
+
+    # for i in range(len(variables)):
+    #     var = variables[i]
+    #     truth_table[var] =[]
+    #     for j in range(len(table)):
+    #         truth_table[var]  = truth_table[var] +[table[j][i]]
+
+    # ans = implies(truth_table['p'],truth_table['q'])
+
+    # print_table(truth_table=truth_table,ans=ans)
+    
+
+def is_validiation(expression):
+    if not check_paranthesis(expression):
+        return False
+    
+
+def check_paranthesis(expression):
+    st = [] #stack for paranthesis chekcing
+
+    for i in range(len(expression)):
+        char = ord(expression[i])
+        
+        # valid characters a-z or A-Z or ( ) or - or < > or ^  or ~ or |
+        if not((char >=65 and char <=90 ) or (char >=97 and char <=122) or char == 40 or char == 41 or char ==45 or char ==60 or char ==62 or char == 94 or char == 124 or char == 126) : return False
+
+        #valid paranthesis
+        if expression[i] == '(' :
+            st.append(expression[i])
+        else:
+            if st and expression[i] == ')' :
+                if st[len(st)-1] != '(':
+                    return False
+                else : st.pop()
+
+    return True if not st else False
+    
+def check_valid_chracters():
+    pass
+>>>>>>> fdb01ef40fb055079b30c759fddbac04909e5e64
 
 
 start()
