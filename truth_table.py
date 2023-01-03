@@ -41,10 +41,10 @@ def equivalance(p, q):
 def print_table(truth_table, ans, expression=None, variables=None):
     for i in range(len(variables)):
         print(f"   {variables[i]}   |", end=" ")
-    # print("    p   |    q   |    p->q  \n")
-    # for i in range(len(ans)):
-    #     print(
-    #         f"{'  True' if truth_table['p'][i] else ' False' }  |{'  True ' if truth_table['q'][i] else '  False'}  |  {ans[i]}\n")
+    print("    p   |    q   |    p->q  \n")
+    for i in range(len(ans)):
+        print(
+            f"{'  True' if truth_table['p'][i] else ' False' }  |{'  True ' if truth_table['q'][i] else '  False'}  |  {ans[i]}\n")
 
 
 def isValidOperator(operator):
@@ -52,26 +52,37 @@ def isValidOperator(operator):
         return True
     return False
 
+#linking operations to operator
+operations = {
+    '->' : implies,
+    '|' : disjuction,
+    '^' : conjuction,
+    '<->' : equivalance,
+    '~' : negation,
+}
+
 
 def start():
-    expression = input("Enter Propositional logic : ")
+    # expression = input("Enter Propositional logic : ")
+    expression = "p->q"
     # print(check_characters_paranthesis(expression=expression))
-    print(valid_expression(expression=expression))
+    variables = list(set(filter(lambda x: x != None,map(lambda x: x if x.isalpha() else None,'_'.join(expression).split('_')))))
+    table = list(itertools.product([True,False], repeat=len(variables)))
 
-    # variables = list(set(filter(lambda x: x != None,map(lambda x: x if x.isalpha() else None,'_'.join(expression).split('_')))))
-    # table = list(itertools.product([True,False], repeat=len(variables)))
+    truth_table = {}
 
-    # truth_table = {}
-
-    # for i in range(len(variables)):
-    #     var = variables[i]
-    #     truth_table[var] = []
-    #     for j in range(len(table)):
-    #         truth_table[var]  += [table[j][i]]
+    for i in range(len(variables)):
+        var = variables[i]
+        truth_table[var] = []
+        for j in range(len(table)):
+            truth_table[var]  += [table[j][i]]
 
     # print_table(truth_table=truth_table, ans=ans,variables=variables)
-    print(check_valid_chracters(expression=expression))
+    # print(valid_expression(expression=expression))
     # print(check_paranthesis(expression))
+    ans = operations[expression[1] + expression[2]](truth_table['p'],truth_table['q']) 
+    print(ans)
+    print_table(truth_table=truth_table,expression=expression,ans=ans,variables=variables)
 
 
 def is_validiation(expression):
@@ -111,14 +122,10 @@ def valid_expression(expression):
     i = 0;
     size = len(expression)
     while(i < size):
-        print(i)
-        print(operand)
-        print(operator)
-        print(expression[i])
+       
         char = ord(expression[i])
         # ~
         if(char == 126):
-            print(char) 
             if operator and operand:
                 operator.pop()
                 operand.pop()
@@ -174,12 +181,41 @@ def valid_expression(expression):
             # operand.pop()        
 
         i+=1
-        print(i)
-        print("--")
 
     if operator:
         return False
     return True
+
+def perform_operation(operands,operators):
+    pass
+
+def evaluate_expression(expression):
+    operator = []
+    operand = []
+    answers = {}
+    for i in range(expression):
+        char = ord(expression[i])
+        if(i>0):
+            charPrev = ord(expression[i-1])
+            if( charPrev == 45 or charPrev == 60 or charPrev == 62 or charPrev == 94 or charPrev == 124 or charPrev == 126 and (char >=65 and char <=90 ) or (char >=97 and char <=122)):
+                pass
+        if((char >=65 and char <=90 ) or (char >=97 and char <=122)):
+            if(operand and operator):
+                #evaluate expression
+                pass
+                operand.pop()
+                operator.pop()
+
+        elif( char == 40 or char == 41 or char == 45 or char == 60 or char == 62 or char == 94 or char == 124 or char == 126):
+            operator.append(expression[i])
+    
+    # if operator and operand:
+    #     temp_ans += operand[-1]
+    #     operand.pop()
+    #     temp_ans += operator[-1]
+    #     operator.pop()
+    #     temp_ans+= operand[-1]
+
 
 # (p->q)^(q->p)     
 
