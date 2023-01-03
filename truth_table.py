@@ -55,26 +55,11 @@ def isValidOperator(operator):
 
 def start():
     expression = input("Enter Propositional logic : ")
-<<<<<<< HEAD
-
-    # separating variables
-    # variables = list(set(filter(lambda x: x != None, map(
-    #     lambda x: x if x.isalpha() else None, '_'.join(expression).split('_')))))
-
-    # #separating operators
-    # operators = list(set(filter(lambda x: x != None, map(
-    #     lambda x: x if isValidOperator(x) else None, '_'.join(expression).split('_')))))
-    # print(operators)
-
-    # #creating truth  for given number of variables
-    # table = list(itertools.product([True, False], repeat=len(variables)))
-=======
     # print(check_characters_paranthesis(expression=expression))
     print(valid_expression(expression=expression))
 
     # variables = list(set(filter(lambda x: x != None,map(lambda x: x if x.isalpha() else None,'_'.join(expression).split('_')))))
     # table = list(itertools.product([True,False], repeat=len(variables)))
->>>>>>> 11d5e96176ceae0b917fb862baba81dab64bce38
 
     # truth_table = {}
 
@@ -82,14 +67,7 @@ def start():
     #     var = variables[i]
     #     truth_table[var] = []
     #     for j in range(len(table)):
-<<<<<<< HEAD
-    #         truth_table[var] = truth_table[var] + [table[j][i]]
-
-    # #final ans
-    # ans = implies(truth_table['p'], truth_table['q'])
-=======
     #         truth_table[var]  += [table[j][i]]
->>>>>>> 11d5e96176ceae0b917fb862baba81dab64bce38
 
     # print_table(truth_table=truth_table, ans=ans,variables=variables)
     print(check_valid_chracters(expression=expression))
@@ -101,13 +79,8 @@ def is_validiation(expression):
         return False
 
 
-<<<<<<< HEAD
-def check_paranthesis(expression):
-    st = []  # stack for paranthesis chekcing
-=======
 def check_characters_paranthesis(expression):
     st = [] #stack for paranthesis chekcing
->>>>>>> 11d5e96176ceae0b917fb862baba81dab64bce38
 
     for i in range(len(expression)):
         char = ord(expression[i])
@@ -127,8 +100,6 @@ def check_characters_paranthesis(expression):
                     st.pop()
 
     return True if not st else False
-<<<<<<< HEAD
-=======
     
 def valid_expression(expression):
 
@@ -211,26 +182,6 @@ def valid_expression(expression):
     return True
 
 # (p->q)^(q->p)     
->>>>>>> 11d5e96176ceae0b917fb862baba81dab64bce38
-
-
-def check_valid_chracters(expression):
-
-    for i in range(len(expression)):
-        char = ord(expression[i])
-
-        if not((char >= 65 and char <= 90) or (char >= 97 and char <= 122)):
-            if(expression[i] == '-' and expression[i+1] != '>'):
-                print('1')
-                return False
-        else:
-            if(char != expression[-1]):
-                print(char)
-                if not(expression[i+1]  == 40 or expression[i+1]  == 41 or expression[i+1]  == 45 or expression[i+1] == 60 or expression[i+1] == 62 or expression[i+1] == 94 or expression[i+1]  == 124 or expression[i+1]  == 126 or expression[i+1]  == 13):
-                    print('2')
-                    return False
-
-    return True
 
 
 start()
