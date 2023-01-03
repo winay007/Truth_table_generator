@@ -1,7 +1,4 @@
 import itertools
-import regex as re
-# input = input("Enter proposition")
-# input = "p^(q^r^s)"
 
 
 def implies(p, q):
@@ -58,6 +55,7 @@ def isValidOperator(operator):
 
 def start():
     expression = input("Enter Propositional logic : ")
+<<<<<<< HEAD
 
     # separating variables
     # variables = list(set(filter(lambda x: x != None, map(
@@ -70,6 +68,13 @@ def start():
 
     # #creating truth  for given number of variables
     # table = list(itertools.product([True, False], repeat=len(variables)))
+=======
+    # print(check_characters_paranthesis(expression=expression))
+    print(valid_expression(expression=expression))
+
+    # variables = list(set(filter(lambda x: x != None,map(lambda x: x if x.isalpha() else None,'_'.join(expression).split('_')))))
+    # table = list(itertools.product([True,False], repeat=len(variables)))
+>>>>>>> 11d5e96176ceae0b917fb862baba81dab64bce38
 
     # truth_table = {}
 
@@ -77,10 +82,14 @@ def start():
     #     var = variables[i]
     #     truth_table[var] = []
     #     for j in range(len(table)):
+<<<<<<< HEAD
     #         truth_table[var] = truth_table[var] + [table[j][i]]
 
     # #final ans
     # ans = implies(truth_table['p'], truth_table['q'])
+=======
+    #         truth_table[var]  += [table[j][i]]
+>>>>>>> 11d5e96176ceae0b917fb862baba81dab64bce38
 
     # print_table(truth_table=truth_table, ans=ans,variables=variables)
     print(check_valid_chracters(expression=expression))
@@ -88,12 +97,17 @@ def start():
 
 
 def is_validiation(expression):
-    if not check_paranthesis(expression):
+    if not check_characters_paranthesis(expression):
         return False
 
 
+<<<<<<< HEAD
 def check_paranthesis(expression):
     st = []  # stack for paranthesis chekcing
+=======
+def check_characters_paranthesis(expression):
+    st = [] #stack for paranthesis chekcing
+>>>>>>> 11d5e96176ceae0b917fb862baba81dab64bce38
 
     for i in range(len(expression)):
         char = ord(expression[i])
@@ -113,6 +127,91 @@ def check_paranthesis(expression):
                     st.pop()
 
     return True if not st else False
+<<<<<<< HEAD
+=======
+    
+def valid_expression(expression):
+
+    if(not check_characters_paranthesis(expression)):
+        return False
+    
+    operand = []
+    operator = []
+    i = 0;
+    size = len(expression)
+    while(i < size):
+        print(i)
+        print(operand)
+        print(operator)
+        print(expression[i])
+        char = ord(expression[i])
+        # ~
+        if(char == 126):
+            print(char) 
+            if operator and operand:
+                operator.pop()
+                operand.pop()
+            
+            elif operand:
+                return False
+            
+            operator.append(expression[i])
+        # a-z A-Z
+        elif((char >=65 and char <=90 ) or (char >=97 and char <=122)):
+            if(operand and operator):
+                operator.pop() 
+                operand.pop()
+                operand.append(expression[i])
+
+            elif(not operand and not operator):
+                operand.append(expression[i])
+
+            elif(operator[0] == '~'):
+                operator.pop()
+                operand.append(expression[i])
+            
+            else : return False
+        #  ^ and |
+        elif(char == 94 or char == 124):
+            if(operand and not operator):
+                operator.append(expression[i])
+            else : return False
+
+        elif(char == 60):
+            if(i +2 < size and expression[i+1] == '-' and expression [i+2] == '>'):
+                if(operand and not operator):
+                    operator.append("<->")
+                    i+=2
+                else : return False
+            else : return False
+        
+        elif( char == 45):
+            if(i +1 < size and expression [i+1] == '>'):
+                if(operand and not operator):
+                    operator.append("->")
+                    i+=1
+                else : return False
+            else : return False
+        
+        elif(char == 41):
+            if(operator) : return False
+            if(i+1<size):
+                char = ord(expression[i+1])
+                if((char >=65 and char <=90 ) or (char >=97 and char <=122)):
+                    return False
+
+            # operand.pop()        
+
+        i+=1
+        print(i)
+        print("--")
+
+    if operator:
+        return False
+    return True
+
+# (p->q)^(q->p)     
+>>>>>>> 11d5e96176ceae0b917fb862baba81dab64bce38
 
 
 def check_valid_chracters(expression):
